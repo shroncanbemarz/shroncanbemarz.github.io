@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Birthday Questions for My Favorite Cutie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #19090c;
+      --red: #ed2946;
+      --pink: #ff8b9d;
+      --cream: #fff1e7;
+      --gold: #ffd176;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--cream);
+      background:
+        radial-gradient(ellipse at 15% 10%, #681625 0, transparent 35%),
+        radial-gradient(ellipse at 90% 85%, #45101b 0, transparent 34%),
+        var(--ink);
+      font-family: "Fredoka", "Trebuchet MS", sans-serif;
+      overflow-x: hidden;
+    }
+
+    button { font: inherit; }
+
+    .sprinkles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .4;
+      background-image:
+        radial-gradient(circle, #ff8b9d 2px, transparent 3px),
+        radial-gradient(circle, #ffd176 2px, transparent 3px),
+        radial-gradient(circle, #ed2946 2px, transparent 3px);
+      background-size: 80px 90px, 120px 110px, 150px 130px;
+      background-position: 0 0, 35px 20px, 70px 55px;
+    }
+
+    .site {
+      width: min(900px, 100%);
+      min-height: 100vh;
+      margin: auto;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header, footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand { color: var(--pink); font-weight: 700; }
+    .counter { color: #e8b9bc; font-size: .95rem; }
+
+    .music-btn {
+      padding: 9px 14px;
+      color: var(--cream);
+      border: 1px solid #ff8b9d77;
+      border-radius: 999px;
+      background: #351018;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 28px 0;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      animation: pop .35s ease both;
+    }
+
+    .slide.active { display: block; }
+
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(12px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card {
+      max-width: 740px;
+      margin: auto;
+      padding: clamp(24px, 6vw, 54px);
+      border: 1px solid #ff788a55;
+      border-radius: 32px;
+      background: linear-gradient(145deg, #351018ee, #210b11f2);
+      box-shadow: 0 20px 70px #0008, inset 0 1px #ffffff12;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    h1, h2 { margin: 0; line-height: 1.1; }
+    h1 { font-size: clamp(2.5rem, 9vw, 5rem); }
+    h2 { font-size: clamp(2rem, 6vw, 3.3rem); }
+
+    .red { color: var(--red); }
+    .pink { color: var(--pink); }
+
+    .food {
+      margin: 16px 0;
+      font-size: clamp(3rem, 11vw, 5.5rem);
+    }
+
+    .intro {
+      max-width: 540px;
+      margin: 20px auto;
+      color: #f4d9d5;
+      font-size: 1.12rem;
+      line-height: 1.65;
+    }
+
+    .answer {
+      display: none;
+      max-width: 590px;
+      margin: 22px auto 0;
+      padding: 18px 20px;
+      border: 1px solid #ff8b9d55;
+      border-radius: 20px;
+      background: #19090c88;
+      color: #f6dfdc;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      text-align: left;
+      animation: pop .3s ease both;
+    }
+
+    .answer.show { display: block; }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      color: var(--cream);
+      background: var(--red);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .18s ease, filter .18s ease;
+      box-shadow: 0 6px 0 #97182c;
+    }
+
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.12); }
+    .btn:active { transform: translateY(3px); box-shadow: 0 3px 0 #97182c; }
+    .btn.secondary { background: #54202b; box-shadow: 0 6px 0 #301018; }
+
+    .nav-btn {
+      padding: 10px 16px;
+      color: var(--cream);
+      border: 1px solid #ff8b9d77;
+      border-radius: 999px;
+      background: #351018;
+      cursor: pointer;
+    }
+
+    .nav-btn:disabled { opacity: .38; cursor: default; }
+    .dots { display: flex; gap: 8px; }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #86505a;
+      cursor: pointer;
+    }
+
+    .dot.active { background: var(--pink); transform: scale(1.25); }
+
+    .bouquet {
+      position: relative;
+      width: 220px;
+      height: 210px;
+      margin: 22px auto;
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+
+    .bouquet:hover { transform: scale(1.06) rotate(-2deg); }
+
+    .flower {
+      position: absolute;
+      z-index: 2;
+      font-size: 3.2rem;
+      animation: bob 2s ease-in-out infinite alternate;
+      filter: drop-shadow(0 5px 5px #0006);
+    }
+
+    .flower:nth-child(1) { left: 78px; top: 3px; }
+    .flower:nth-child(2) { left: 28px; top: 35px; animation-delay: .2s; }
+    .flower:nth-child(3) { right: 25px; top: 34px; animation-delay: .4s; }
+    .flower:nth-child(4) { left: 62px; top: 65px; animation-delay: .3s; }
+    .flower:nth-child(5) { right: 55px; top: 68px; animation-delay: .5s; }
+
+    @keyframes bob {
+      to { transform: translateY(-6px) rotate(5deg); }
+    }
+
+    .stems {
+      position: absolute;
+      left: 50%;
+      top: 78px;
+      width: 4px;
+      height: 88px;
+      border-radius: 5px;
+      background: #79a85a;
+      transform: translateX(-50%);
+      box-shadow:
+        -22px 7px #79a85a,
+        22px 3px #79a85a,
+        -42px -4px #79a85a,
+        42px -7px #79a85a;
+    }
+
+    .wrapper {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 0;
+      width: 150px;
+      height: 88px;
+      background: linear-gradient(135deg, #ed2946, #a91232);
+      clip-path: polygon(8% 0, 92% 0, 70% 100%, 30% 100%);
+      transform: translateX(-50%);
+      filter: drop-shadow(0 6px 5px #0007);
+    }
+
+    .wrapper::after {
+      content: "♡";
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      color: var(--gold);
+      font-size: 2rem;
+      transform: translateX(-50%);
+    }
+
+    .ribbon {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      bottom: 33px;
+      color: var(--gold);
+      font-size: 1.8rem;
+      transform: translateX(-50%);
+    }
+
+    .cake-button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: clamp(5rem, 18vw, 9rem);
+      transition: transform .2s;
+    }
+
+    .cake-button:hover { transform: scale(1.08) rotate(-3deg); }
+    .tiny-note { color: #d3aeb0; font-size: .95rem; }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      z-index: 5;
+      pointer-events: none;
+      animation: fall 2.3s linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    @media (max-width: 520px) {
+      .site { padding: 16px; }
+      .card { border-radius: 24px; }
+      .brand { font-size: .9rem; }
+      header { flex-wrap: wrap; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sprinkles"></div>
+
+  <audio
+    id="bg-music"
+    src="https://cdn.pixabay.com/download/audio/2023/04/03/audio_6ae388992a.mp3?filename=music_for_videos-coffee-lounge-145030.mp3"
+    loop>
+  </audio>
+
+  <div class="site">
+    <header>
+      <div class="brand">🍒 your birthday question buffet</div>
+      <div class="counter" id="counter" aria-live="polite"></div>
+      <button class="music-btn" id="music-toggle" onclick="toggleMusic()">▶ Play music</button>
+    </header>
+
+    <main>
+      <section class="slide active">
+        <div class="card">
+          <p class="eyebrow">a tiny quiz, made with love</p>
+          <div class="food">🍰</div>
+          <h1>happy birthday<br>to the <span class="red">silliest</span><br><span class="pink">cutie</span></h1>
+          <p class="intro">Ready for a little birthday quiz? There are memories, food, flowers, and one very important cake.</p>
+          <button class="btn" onclick="goTo(1)">Yes, let’s go! 🎁</button>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">question 1 · first chat</p>
+          <div class="food">🍕</div>
+          <h2>Do you remember our first proper chat?</h2>
+          <div class="button-row">
+            <button class="btn" onclick="reveal('first-chat')">When Max left the VC? 👀</button>
+            <button class="btn secondary" onclick="reveal('first-chat')">Remind me! 🍕</button>
+          </div>
+          <div class="answer" id="first-chat">
+            It was when Max went to do whatever in the world he does when he gets off the VC. It wasn’t as awkward as it usually was. I remember feeling so happy to get closer to you ^^ Then I questioned absolutely why I felt that way and spiraled over it like crazy. And yay, here we are now :sob:
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">question 2 · the confession</p>
+          <div class="food">🍓</div>
+          <h2>What happened after I told you how I felt?</h2>
+          <div class="button-row">
+            <button class="btn" onclick="reveal('confession')">You got closer 💗</button>
+            <button class="btn secondary" onclick="reveal('confession')">Tell me the story 🍓</button>
+          </div>
+          <div class="answer" id="confession">
+            The embarrassment I felt the morning after I confessed how I felt for you was absolutely crushing. But that night got us a lot closer and more comfortable. Ever since then, I’ve been way more open about how I feel with you and how I feel about you. Even though I may seem confident about it, I still wake up with that same memory rushing in and all the embarrassment replaying ;-;
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">question 3 · twin time</p>
+          <div class="food">🍜</div>
+          <h2>Who did I get to talk to when you called me?</h2>
+          <div class="button-row">
+            <button class="btn" onclick="reveal('twin')">Your twin! 😄</button>
+            <button class="btn secondary" onclick="reveal('twin')">And what did you think? 🍜</button>
+          </div>
+          <div class="answer" id="twin">
+            It was really nice talking to your twin and seeing that side of you too. I felt happy seeing you so comfy, honestly. I had to hold back from laughing a lot because I was seeing a little bit of a new you.
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">question 4 · important birthday business</p>
+          <div class="food">🍔🍟</div>
+          <h2>What do you deserve today?</h2>
+          <div class="button-row">
+            <button class="btn" onclick="birthdayAnswer()">A mountain of snacks 🍔</button>
+            <button class="btn secondary" onclick="birthdayAnswer()">All the love 💖</button>
+            <button class="btn" onclick="birthdayAnswer()">Both, obviously 😌</button>
+          </div>
+          <div class="answer" id="birthday-answer">
+            Correct answer: absolutely everything! I’m really glad we got closer, Bongo. I’m sosososo very glad :> Everything up to now has felt so great, so I can’t wait for later :D
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">question 5 · a little gift</p>
+          <h2>Can I give you some flowers?</h2>
+          <div class="bouquet" role="img" aria-label="A bouquet of flowers" onclick="confetti()">
+            <span class="flower">🌹</span>
+            <span class="flower">🌷</span>
+            <span class="flower">🌺</span>
+            <span class="flower">🌸</span>
+            <span class="flower">🌷</span>
+            <div class="stems"></div>
+            <div class="wrapper"></div>
+            <div class="ribbon">🎀</div>
+          </div>
+          <button class="btn" onclick="reveal('flowers')">Yes, please! 💐</button>
+          <div class="answer" id="flowers">
+            A little bouquet for my favorite cutie. I hope your birthday is as sweet, silly, and wonderful as you are 💖
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">final question · make a wish!</p>
+          <h2>Ready to blow out your candles?</h2>
+          <p class="intro">Tap the cake and make a birthday wish. Psst… your wish is safe with me.</p>
+          <button class="cake-button" id="cake" aria-label="Blow out the birthday candles" onclick="blowCandles()">🎂</button>
+          <p class="tiny-note" id="cake-note">Tap the cake! ✨</p>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="card">
+          <p class="eyebrow">one last little message 💖</p>
+          <div class="food">💌</div>
+          <h2>So, Bongo…</h2>
+          <p class="intro">
+            I hope this short website was at least a little bit entertaining for you on your special day ^^
+            <br><br>
+            I hope I was able to share how happy you’ve made me feel through all these messages, and how fun it is to be with you. YES, even in the silence, loud servers, or just normal yappathons.
+            <br><br>
+            It’s all very fun with you because it’s with you :3
+            <br><br>
+            I thought this year was pretty boring until I met you, tbh. Ever since then, I’ve been living every day to the fullest, so thank you, Bongo! Have a great year and a great life.
+            <br><br>
+            Love ya :&gt;
+          </p>
+          <div class="food">🎂💖</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <button class="nav-btn" id="prev" onclick="move(-1)">← Back</button>
+      <div class="dots" id="dots" aria-label="Choose a slide"></div>
+      <button class="nav-btn" id="next" onclick="move(1)">Next →</button>
+    </footer>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const dotsBox = document.getElementById("dots");
+    let current = 0;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement("button");
+      dot.className = "dot";
+      dot.setAttribute("aria-label", `Go to question ${index + 1}`);
+      dot.addEventListener("click", () => goTo(index));
+      dotsBox.appendChild(dot);
+    });
+
+    const dots = [...dotsBox.children];
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
+      document.getElementById("counter").textContent = `${current + 1} / ${slides.length}`;
+      document.getElementById("prev").disabled = current === 0;
+      document.getElementById("next").disabled = current === slides.length - 1;
+    }
+
+    function move(amount) {
+      goTo(current + amount);
+    }
+
+    function reveal(id) {
+      document.getElementById(id).classList.add("show");
+    }
+
+    function birthdayAnswer() {
+      reveal("birthday-answer");
+      confetti();
+    }
+
+    function blowCandles() {
+      document.getElementById("cake").textContent = "🍰";
+      document.getElementById("cake-note").textContent =
+        "Wish made! Happy birthday, you absolute cutie 💖";
+      confetti();
+    }
+
+    async function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      const button = document.getElementById("music-toggle");
+
+      if (music.paused) {
+        try {
+          await music.play();
+          button.textContent = "⏸ Pause music";
+        } catch {
+          button.textContent = "Couldn’t play music";
+        }
+      } else {
+        music.pause();
+        button.textContent = "▶ Play music";
+      }
+    }
+
+    function confetti() {
+      const pieces = ["❤️", "💖", "✨", "🍓", "🎉", "🍒"];
+
+      for (let i = 0; i < 45; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.fontSize = (16 + Math.random() * 18) + "px";
+        piece.style.animationDelay = Math.random() * .8 + "s";
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3200);
+      }
+    }
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "ArrowRight") move(1);
+      if (event.key === "ArrowLeft") move(-1);
+    });
+
+    goTo(0);
+  </script>
+</body>
+</html>
